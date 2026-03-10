@@ -1,10 +1,19 @@
 public class Commander {
     // TODO: Declare fields here
+    //   private String name
+    //   private BattleGrid grid
+    //   private int score
 
     // TODO: Write the constructor
     //   public Commander(String name, int rows, int cols)
+    //   - Set name from parameter
+    //   - Initialize grid as new BattleGrid(rows, cols)
+    //   - score starts at 0
 
     // TODO: Write getters
+    //   public String getName()
+    //   public BattleGrid getGrid()
+    //   public int getScore()
 
     // TODO: Write deploy(int row, int col, Unit unit)
     //   public boolean deploy(int row, int col, Unit unit)

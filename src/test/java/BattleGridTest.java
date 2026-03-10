@@ -143,7 +143,6 @@ public class BattleGridTest {
         requireMethod(grid, "strengthInRow", int.class, int.class);
         requireMethod(grid, "strengthInCol", int.class, int.class);
         requireMethod(grid, "getStrongestRow", int.class);
-        requireMethod(grid, "toString", String.class);
     }
 
     @Test
@@ -408,36 +407,6 @@ public class BattleGridTest {
     }
 
     @Test
-    public void battleGrid_behavior_toString() {
-        System.out.println("\n=== Behavior: BattleGrid.toString ===");
-
-        Class<?> gridClass = requireClass("BattleGrid");
-        Class<?> unitClass = requireClass("Unit");
-
-        Constructor<?> gridCtor = requireConstructor(gridClass, int.class, int.class);
-        Constructor<?> unitCtor = requireConstructor(unitClass, String.class, char.class, int.class);
-
-        Method placeUnit = requireMethod(gridClass, "placeUnit", boolean.class, int.class, int.class, unitClass);
-        Method toString  = requireMethod(gridClass, "toString", String.class);
-
-        // Empty 2x3 grid
-        Object g1 = newInstance(gridCtor, 2, 3);
-        assertEquals(". . .\n. . .", invoke(toString, g1),
-                "Empty 2x3 grid should display all dots with no trailing newline.");
-
-        // 3x4 grid with units at (0,1)='A' and (2,3)='S'
-        Object g2 = newInstance(gridCtor, 3, 4);
-        Object archer = newInstance(unitCtor, "Archer", 'A', 3);
-        Object scout  = newInstance(unitCtor, "Scout",  'S', 1);
-        invoke(placeUnit, g2, 0, 1, archer);
-        invoke(placeUnit, g2, 2, 3, scout);
-
-        String expected = ". A . .\n. . . .\n. . . S";
-        assertEquals(expected, invoke(toString, g2),
-                "BattleGrid.toString() should show unit symbols at occupied cells and '.' elsewhere.");
-    }
-
-    @Test
     public void commander_behavior_constructor_deploy_and_score() {
         System.out.println("\n=== Behavior: Commander constructor, deploy, and score ===");
 
@@ -541,11 +510,14 @@ public class BattleGridTest {
 
             Constructor<?> gridCtor = gridClass.getDeclaredConstructor(int.class, int.class);
             Constructor<?> unitCtor = unitClass.getDeclaredConstructor(String.class, char.class, int.class);
-            Method placeUnit        = gridClass.getDeclaredMethod("placeUnit", int.class, int.class, unitClass);
-            Method toString         = gridClass.getDeclaredMethod("toString");
-            Method strengthInRow    = gridClass.getDeclaredMethod("strengthInRow", int.class);
-            Method strengthInCol    = gridClass.getDeclaredMethod("strengthInCol", int.class);
-            Method getStrongestRow  = gridClass.getDeclaredMethod("getStrongestRow");
+            Method placeUnit       = gridClass.getDeclaredMethod("placeUnit", int.class, int.class, unitClass);
+            Method getUnit         = gridClass.getDeclaredMethod("getUnit", int.class, int.class);
+            Method getSymbol       = unitClass.getDeclaredMethod("getSymbol");
+            Method strengthInRow   = gridClass.getDeclaredMethod("strengthInRow", int.class);
+            Method strengthInCol   = gridClass.getDeclaredMethod("strengthInCol", int.class);
+            Method getStrongestRow = gridClass.getDeclaredMethod("getStrongestRow");
+            Method getRows         = gridClass.getDeclaredMethod("getRows");
+            Method getCols         = gridClass.getDeclaredMethod("getCols");
 
             // Build a 5x6 showcase grid
             Object grid = gridCtor.newInstance(5, 6);
@@ -568,25 +540,28 @@ public class BattleGridTest {
                 placeUnit.invoke(grid, (int) entry[1], (int) entry[2], entry[0]);
             }
 
-            String gridStr = (String) toString.invoke(grid);
-            String[] gridLines = gridStr.split("\n");
+            int numRows = (int) getRows.invoke(grid);
+            int numCols = (int) getCols.invoke(grid);
 
-            // Print grid with row strength labels
             System.out.println("║  FINAL BATTLE DEPLOYMENT           ║");
             System.out.println("╠══════════════════════════════════════╣");
             System.out.println("║  Col:  0  1  2  3  4  5  Strength  ║");
             System.out.println("║       ─────────────────────────────  ║");
 
-            for (int r = 0; r < gridLines.length; r++) {
+            for (int r = 0; r < numRows; r++) {
+                StringBuilder rowDisplay = new StringBuilder();
+                for (int c = 0; c < numCols; c++) {
+                    Object cell = getUnit.invoke(grid, r, c);
+                    rowDisplay.append(cell != null ? (char) getSymbol.invoke(cell) : '.').append(" ");
+                }
                 int str = (int) strengthInRow.invoke(grid, r);
-                System.out.printf("║  [%d]  %s    %2d       ║%n", r, gridLines[r], str);
+                System.out.printf("║  [%d]  %s   %2d       ║%n", r, rowDisplay.toString(), str);
             }
 
             System.out.println("║       ─────────────────────────────  ║");
 
-            // Column strengths
             StringBuilder colRow = new StringBuilder("║  Str: ");
-            for (int c = 0; c < 6; c++) {
+            for (int c = 0; c < numCols; c++) {
                 int cs = (int) strengthInCol.invoke(grid, c);
                 colRow.append(String.format("%-3d", cs));
             }

@@ -108,7 +108,6 @@ public int countUnitsInCol(int col)
 public int strengthInRow(int row)
 public int strengthInCol(int col)
 public int getStrongestRow()
-public String toString()
 ```
 
 #### `placeUnit` Rules
@@ -144,20 +143,6 @@ public String toString()
 - If all rows have equal strength (including all zeros), return `0`.
 - If there is a tie, return the **lowest** row index.
 
-#### `toString` Rules
-- Returns a multi-line String representing the grid.
-- Each cell displays the unit's symbol if occupied, or `'.'` if empty.
-- Cells are separated by a single space.
-- Rows are separated by `"\n"`.
-- There is **no trailing newline** at the end.
-
-Example for a 3×4 grid with units at (0,1) and (2,3):
-```
-. A . .
-. . . .
-. . . S
-```
-
 ---
 
 ## Class 3: Commander
@@ -192,8 +177,8 @@ public String getStatus()
 #### `deploy` Rules
 - Attempts to place `unit` at `(row, col)` on the grid.
 - If placement succeeds (i.e., `grid.placeUnit(...)` returns `true`):
-    - Add the unit's strength to `score`.
-    - Return `true`.
+  - Add the unit's strength to `score`.
+  - Return `true`.
 - If placement fails, return `false`. Do NOT change `score`.
 
 #### `getTotalStrength` Rules
@@ -253,8 +238,6 @@ public class BattleGrid {
     // TODO: Write strengthInCol(int col)
 
     // TODO: Write getStrongestRow()
-
-    // TODO: Write toString()
 }
 ```
 
@@ -283,6 +266,5 @@ public class Commander {
 - Follow the method names, parameter lists, and return types exactly — your code will be tested automatically.
 - All fields must be `private`.
 - All constructors and methods must be `public`.
-- When building Strings in `toString()` or `getStatus()`, do **not** use `System.out.println`. Build and return the String directly.
+- When building Strings in `getStatus()`, do **not** use `System.out.println`. Build and return the String directly.
 - A cell is **empty** if it holds `null`. An occupied cell holds a `Unit` reference.
-- The `BattleGrid.toString()` output has **no trailing newline**.

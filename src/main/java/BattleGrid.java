@@ -1,9 +1,18 @@
 public class BattleGrid {
     // TODO: Declare fields here
+    //   private Unit[][] grid
+    //   private int rows
+    //   private int cols
 
     // TODO: Write the constructor
+    //   public BattleGrid(int rows, int cols)
+    //   - Set rows and cols from parameters
+    //   - Initialize grid as new Unit[rows][cols]
+    //   - All cells start as null (empty) automatically
 
     // TODO: Write getters
+    //   public int getRows()
+    //   public int getCols()
 
     // TODO: Write placeUnit(int row, int col, Unit unit)
     //   public boolean placeUnit(int row, int col, Unit unit)
@@ -42,17 +51,4 @@ public class BattleGrid {
     //   - Return the index of the row with the highest total strength
     //   - If all rows have equal strength (including all zeros), return 0
     //   - In case of a tie, return the lowest row index
-
-    // TODO: Write toString()
-    //   public String toString()
-    //   - Returns a multi-line String representing the grid
-    //   - Each occupied cell shows the unit's symbol; empty cells show '.'
-    //   - Cells are separated by a single space
-    //   - Rows are separated by "\n"
-    //   - No trailing newline at the end
-    //
-    //   Example (3x4 grid, units at (0,1)='A' and (2,3)='S'):
-    //   . A . .
-    //   . . . .
-    //   . . . S
 }
