@@ -1,6 +1,6 @@
 public class Unit {
     // TODO: Declare fields here
-    //   private String name
+    private String name
     //   private char symbol
     //   private int strength
 
