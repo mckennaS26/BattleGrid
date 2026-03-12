@@ -66,23 +66,59 @@ public class BattleGrid {
                     notNull++;
                 }
             }
+            return notNull;
         }
     }
     //   - Return 0 if row is out of bounds
     //   - Otherwise: traverse the row; count and return non-null cells
 
     // TODO: Write countUnitsInCol(int col)
-    public int countUnitsInCol(int col)
+    public int countUnitsInCol(int col) {
+        int notNull = 0;
+        if(col > cols) {
+            return 0;
+        }else {
+            for() {
+                for() {
+                    if(grid[row][col] != null) {
+                        notNull++;
+                    }
+                }
+            }
+            return notNull;
+        }
+    }
     //   - Return 0 if col is out of bounds
     //   - Otherwise: traverse the column; count and return non-null cells
+    // /m col is constant from beginning of loop, because in a col you are gowing down by the row of each
 
     // TODO: Write strengthInRow(int row)
-    public int strengthInRow(int row)
+    public int strengthInRow(int row) {
+        int sum = 0;
+        if(row > rows) {
+            return 0;
+        }else{
+            for() {
+                sum += grid[row][col].getStrength();
+            }
+            return sum;
+        }
+    }
     //   - Return 0 if row is out of bounds
     //   - Otherwise: traverse the row; sum and return strength values of non-null units
 
     // TODO: Write strengthInCol(int col)
-    public int strengthInCol(int col)
+    public int strengthInCol(int col) {
+       int sum = 0;
+        if(col > cols) {
+            return 0;
+        }else {
+            for() {
+                sum += grid[row][col].getStrength();
+            }
+            return sum;
+        }
+    }
     //   - Return 0 if col is out of bounds
     //   - Otherwise: traverse the column; sum and return strength values of non-null units
 
