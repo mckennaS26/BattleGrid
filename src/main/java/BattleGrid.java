@@ -31,7 +31,13 @@ public class BattleGrid {
         else if(row > rows || col > cols) {
             return false;
         }
-        else if()
+        else if(grid[row][col] != null) {
+            return false;
+        }
+        else {
+            grid[row][col] = unit;
+            return true;
+        }
     }
     //   - Return false (do nothing) if unit is null
     //   - Return false (do nothing) if row or col is out of bounds
@@ -39,12 +45,29 @@ public class BattleGrid {
     //   - Otherwise: place unit at grid[row][col] and return true
 
     // TODO: Write getUnit(int row, int col)
-    public Unit getUnit(int row, int col)
+    public Unit getUnit(int row, int col) {
+        if(row > rows || col > cols) {
+            return null;
+        }else{
+            return grid[row][col];
+        }
+    }
     //   - Return null if row or col is out of bounds
     //   - Otherwise: return grid[row][col]  (may be null if cell is empty)
 
     // TODO: Write countUnitsInRow(int row)
-    public int countUnitsInRow(int row)
+    public int countUnitsInRow(int row) {
+       int notNull = 0;
+        if (row > rows) {
+            return 0;
+        }else{
+            for () {
+                if(grid[row][col] != null) {
+                    notNull++;
+                }
+            }
+        }
+    }
     //   - Return 0 if row is out of bounds
     //   - Otherwise: traverse the row; count and return non-null cells
 
